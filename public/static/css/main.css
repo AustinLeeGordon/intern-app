@@ -1,6 +1,8 @@
 body, html {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  height: 100%;
+  width: 100%; }
 
 h, h1, h2, h3, h4, h5, h6, p {
   margin: 0;
@@ -16,3 +18,122 @@ img {
 
 a {
   text-decoration: none; }
+
+:focus {
+  outline: none; }
+
+#homeScreen {
+  background-color: #ffffff;
+  height: 100%;
+  position: absolute;
+  width: 100%; }
+  #homeScreen #logoWrapper {
+    background-color: #f9f9f9;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    width: 100%; }
+    #homeScreen #logoWrapper img {
+      left: 50%;
+      position: relative;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px; }
+  #homeScreen #feedMe {
+    background-color: #0072b0;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    left: 50%;
+    padding: 20px;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; }
+    #homeScreen #feedMe h1 {
+      color: #ffffff;
+      font-family: "Montserrat", sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase; }
+  #homeScreen #filtersLabel {
+    bottom: 0;
+    cursor: pointer;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%); }
+    #homeScreen #filtersLabel img {
+      display: block;
+      height: 32px;
+      left: 50%;
+      padding: 15px;
+      position: relative;
+      transform: translateX(-50%);
+      width: 32px; }
+  #homeScreen #filtersMenu {
+    background-color: #333333;
+    bottom: 0;
+    height: 0;
+    position: absolute;
+    width: 100%; }
+
+#filtersList {
+  margin: 0 auto;
+  width: 90%;
+  opacity: 0; }
+  #filtersList .filterOption {
+    margin: 15px 0; }
+    #filtersList .filterOption p {
+      color: #ffffff;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 300;
+      margin: 30px 0 15px; }
+    #filtersList .filterOption .filterOptionListItem {
+      background-color: #292929;
+      display: block;
+      float: left;
+      height: 60px;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      width: 18.4%; }
+      #filtersList .filterOption .filterOptionListItem span {
+        color: #555555;
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); }
+      #filtersList .filterOption .filterOptionListItem:not(:first-child) {
+        margin-left: 2%; }
+      #filtersList .filterOption .filterOptionListItem.selected {
+        background-color: #0072b0; }
+        #filtersList .filterOption .filterOptionListItem.selected span {
+          color: #ffffff; }
+
+#resultScreen {
+  background-color: #ffffff;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: none; }
+
+#loadingScreen {
+  background-color: #ffffff;
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 9999; }
+  #loadingScreen img {
+    height: 128px;
+    left: 50%;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 128px; }

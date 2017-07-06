@@ -4,7 +4,8 @@ var internApplication = (function(){
         currentLong,
         responseData,
         currentRestaurant,
-        currentRestaurantNum;
+        currentRestaurantNum,
+        initialSearchFinished = false;
 
     var options = {};
 
@@ -75,7 +76,7 @@ var internApplication = (function(){
 
                     console.log(responseData);
 
-                        reroll();
+                    reroll();
 
                 });
 
@@ -99,7 +100,7 @@ var internApplication = (function(){
 
                     console.log(responseData);
 
-                        reroll();
+                    reroll();
 
                 });
 
@@ -126,7 +127,23 @@ var internApplication = (function(){
             console.log(currentRestaurant.restaurants[0]);
             console.log(currentRestaurant.restaurants[0].restaurant.name);
 
+            // populate result
+            internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.photos_url, currentRestaurant.restaurants[0].restaurant.price_range);
+            console.log(currentRestaurant.restaurants[0].restaurant.photos_url);
         });
+
+        // if the initial search has finished...
+        if(!initialSearchFinished){
+
+            // search is finished
+            initialSearchFinished = true;
+
+            // hide loading screen
+            $('#loadingScreen').animate({opacity: 0}, internApplicationView.filtersSettings.fadeTime, function(){
+                this.style.display = 'none';
+            });
+
+        }
 
     }
 
@@ -136,7 +153,7 @@ var internApplication = (function(){
 
         var zomatoRequestOptions = {
             method: 'GET',
-            url: 'https://developers.zomato.com/api/v2.1/search?' + 'start=' + start + '&count=' + count + '&lat=' + currentLat + '&lon=' + currentLong + '&radius=' + options.radius
+            url: 'https://developers.zomato.com/api/v2.1/search?' + 'start="' + start + '"&count=' + count + '&lat=' + currentLat + '&lon=' + currentLong + '&radius=' + options.radius
         };
 
         var zomatoRequest = new XMLHttpRequest();
@@ -146,6 +163,7 @@ var internApplication = (function(){
                 if (typeof callback == "function") {
 
                     callback.apply(zomatoRequest);
+
                 }
             }
         }
@@ -173,6 +191,7 @@ var internApplication = (function(){
 
     return {
         getLocation: getLocation,
+        initialSearchFinished: initialSearchFinished,
         options: options,
         reroll: reroll,
         search: search

@@ -5,13 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Intern App</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <p id="output"></p>
-    <button onclick="internApplication.search()">Get Food</button>
-    <button onclick="internApplication.reroll()">Something else</button>
+    <div id="homeScreen">
+        <div id="logoWrapper">
+            <img src="assets/images/designory-logo.png">
+        </div>
+        <button id="feedMe"><h1>Feed Me</h1></button>
+        <div id="filtersLabel">
+            <img src="assets/images/filterIcon.png">
+        </div>
+        <div id="filtersMenu">
+            <ul id="filtersList">
+                <li id="distanceFilter" class="filterOption">
+                    <p>Distance (miles)</p>
+                    <ul class="filterOptionList">
+                        <li class="filterOptionListItem selected" value="0.5"><span>0.5</span></li>
+                        <li class="filterOptionListItem" value="1"><span>1</span></li>
+                        <li class="filterOptionListItem" value="5"><span>5</span></li>
+                        <li class="filterOptionListItem" value="10"><span>10</span></li>
+                        <li class="filterOptionListItem" value="25"><span>25</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 
+    <div id="resultScreen">
+        <img id="resultImage">
+        <h2 id="resultName"></h2>
+        <p id="resultPrice"></p>
+    </div>
+
+    <div id="loadingScreen"><img src="assets/images/loading.gif"></div>
+
+    <script src="js/jquery.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/view.js"></script>
+
 </body>
 </html>
