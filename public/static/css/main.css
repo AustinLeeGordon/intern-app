@@ -22,23 +22,25 @@ a {
 :focus {
   outline: none; }
 
+#logoWrapper {
+  background-color: #f9f9f9;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999; }
+  #logoWrapper img {
+    left: 50%;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; }
+
 #homeScreen {
   background-color: #ffffff;
   height: 100%;
   position: absolute;
   width: 100%; }
-  #homeScreen #logoWrapper {
-    background-color: #f9f9f9;
-    height: 100px;
-    position: absolute;
-    top: 0;
-    width: 100%; }
-    #homeScreen #logoWrapper img {
-      left: 50%;
-      position: relative;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px; }
   #homeScreen #feedMe {
     background-color: #0072b0;
     border: none;
@@ -125,17 +127,87 @@ a {
   background-color: #ffffff;
   height: 100%;
   position: absolute;
-  width: 100%;
-  display: none; }
+  width: 100%; }
+  #resultScreen #resultWrapper {
+    box-shadow: 0 0 15px #ccc;
+    font-family: "Montserrat", sans-serif;
+    margin: 0 auto;
+    max-width: 480px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%; }
+    #resultScreen #resultWrapper #resultImage {
+      width: 100%; }
+    #resultScreen #resultWrapper #resultInfo {
+      padding: 10px 15px; }
+    #resultScreen #resultWrapper #resultName {
+      color: #000000;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 0 0; }
+    #resultScreen #resultWrapper #resultAddress {
+      color: #555555;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 10px 0; }
+    #resultScreen #resultWrapper #resultPrice {
+      color: #000000;
+      font-size: 20px;
+      font-weight: 400;
+      padding: 0 0; }
+      #resultScreen #resultWrapper #resultPrice:after {
+        color: #555555;
+        content: 'price';
+        display: block;
+        font-size: 12px;
+        font-weight: 300; }
+  #resultScreen #resultButtons {
+    bottom: 20px;
+    height: 50px;
+    left: 50%;
+    max-width: 480px;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 80%; }
+    #resultScreen #resultButtons__home {
+      float: left;
+      height: inherit;
+      width: 20%; }
+    #resultScreen #resultButtons__reroll {
+      float: left;
+      height: inherit;
+      width: 75%; }
+    #resultScreen #resultButtons #resultHomeButton {
+      cursor: pointer;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px; }
+    #resultScreen #resultButtons #reroll {
+      background-color: #0072b0;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      height: 100%;
+      position: relative;
+      width: 100%; }
+      #resultScreen #resultButtons #reroll h1 {
+        color: #ffffff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase; }
 
 #loadingScreen {
   background-color: #ffffff;
-  display: none;
   height: 100%;
   opacity: 0;
   position: absolute;
   width: 100%;
-  z-index: 9999; }
+  z-index: 9998; }
   #loadingScreen img {
     height: 128px;
     left: 50%;

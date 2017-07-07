@@ -24,7 +24,10 @@ var internApplicationView = (function(){
     var resultScreen = document.getElementById('resultScreen');
     var resultImage = document.getElementById('resultImage');
     var resultName = document.getElementById('resultName');
+    var resultAddress = document.getElementById('resultAddress');
     var resultPrice = document.getElementById('resultPrice');
+    var resultHomeButton = document.getElementById('resultHomeButton');
+    var resultRerollButton = document.getElementById('reroll');
 
 
     // loading screen
@@ -58,9 +61,6 @@ var internApplicationView = (function(){
             $(homeScreen).animate({opacity: 0}, filtersSettings.fadeTime, function(){
                 this.style.display = 'none';
             });
-            
-            // set options based on filters
-            internApplication.setOptions();
 
             // run the search
             internApplication.search();
@@ -68,7 +68,28 @@ var internApplicationView = (function(){
         });
 
         filtersButton.addEventListener('click', function(){
+
             filterMenuToggle();
+            
+        });
+        
+        resultHomeButton.addEventListener('click', function(){
+
+            // show the home screen
+            homeScreen.style.display = 'block';
+            $(homeScreen).animate({opacity: 1}, filtersSettings.fadeTime);
+
+            // hide the result screen
+            $(resultScreen).animate({opacity: 0}, filtersSettings.fadeTime, function(){
+                this.style.display = 'none';
+            });
+
+        });
+
+        resultRerollButton.addEventListener('click', function(){
+
+            internApplication.reroll();
+
         });
 
         distanceFilterListItems.forEach(function(e, i){
@@ -122,25 +143,37 @@ var internApplicationView = (function(){
 
     }
 
-    var populateResult = function(name, image, price){
+    var populateResult = function(image, name, address, price){
+
+        var priceInDollars = '$';
+        var imageType = image.split('.').pop().toLowerCase();
+        console.log(imageType);
 
         // display the result screen
         resultScreen.style.display = 'block';
+        $(resultScreen).animate({opacity: 1}, filtersSettings.fadeTime);
 
         // check for featured image
-        if( image == '') {
-
-            console.log('set default image');
-
-        }else {
+        if( imageType == 'jpg' || imageType == 'png' ) {
 
             resultImage.setAttribute('src', image);
 
+        }else {
+
+            resultImage.setAttribute('src', 'assets/images/default.jpg');
+            console.log('set default image');
+
+        }
+
+        // convert price number to dollar signs
+        for(var i = 1; i < price; i++) {
+            priceInDollars += '$';
         }
 
         // populate info
         resultName.innerHTML = name;
-        resultPrice.innerHTML = price;
+        resultAddress.innerHTML = address;
+        resultPrice.innerHTML = priceInDollars;
     }
 
     return {

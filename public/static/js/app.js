@@ -5,7 +5,7 @@ var internApplication = (function(){
         responseData,
         currentRestaurant,
         currentRestaurantNum,
-        initialSearchFinished = false;
+        initialSearchFinished;
 
     var options = {};
 
@@ -13,17 +13,16 @@ var internApplication = (function(){
 
         var radiusValue = document.getElementById('distanceFilter').querySelector('.selected').getAttribute('value');
         options.radius = (radiusValue * 1609.34).toFixed(0);
+
     }
 
     var getLocation = function(callback){
 
         console.log('getting location...');
 
-        if(location.protocol != 'https:' && navigator.geolocation) {
+        if(location.protocol == 'https:' && navigator.geolocation) {
 
-            navigator.geolocation.getCurrentPosition(searchRestaurants);
-
-            function searchRestaurants(position){
+            function getPosition(position){
 
                 currentLat = position.coords.latitude.toFixed(8);
                 currentLong = position.coords.longitude.toFixed(8);
@@ -33,6 +32,8 @@ var internApplication = (function(){
                 callback();
 
             }
+
+            navigator.geolocation.getCurrentPosition(getPosition);
 
 
         } else {
@@ -46,13 +47,7 @@ var internApplication = (function(){
 
             geoRequest.onload = function(){
 
-                geoRequest.onreadystatechange = function() {
-                    if (geoRequest.readyState == 4) {
-                        if (typeof callback == "function") {
-                            callback.apply(geoRequest);
-                        }
-                    }
-                }
+                callback.apply(geoRequest);
 
             }
 
@@ -65,9 +60,13 @@ var internApplication = (function(){
 
     var search = function(){
 
+        // set search state
+        initialSearchFinished = false;
+        
+
         setOptions();
 
-        if(location.protocol != 'https:' && navigator.geolocation) {
+        if(location.protocol == 'https:' && navigator.geolocation) {
 
             getLocation(function(){
 
@@ -88,12 +87,12 @@ var internApplication = (function(){
 
             getLocation(function(){
 
-                var geoRequestRes = JSON.parse(geoRequest.response);
+                var geoRequestRes = JSON.parse(this.response);
 
                 currentLat = geoRequestRes.latitude;
                 currentLong = geoRequestRes.longitude;
 
-                //console.log('current location: lat ' + currentLat + ', long ' + currentLong);
+                console.log('current location: lat ' + currentLat + ', long ' + currentLong);
 
                 // get data based on current search
                 getZomatoData(0, 20, function(){
@@ -127,12 +126,9 @@ var internApplication = (function(){
             currentRestaurant = JSON.parse(this.response);
 
             console.log(currentRestaurant);
-            console.log(currentRestaurant.restaurants[0]);
-            console.log(currentRestaurant.restaurants[0].restaurant.name);
-            console.log(currentRestaurant.restaurants[0].restaurant.featured_image);
 
             // populate result
-            internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.featured_image, currentRestaurant.restaurants[0].restaurant.price_range);
+            internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.featured_image, currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.location.address, currentRestaurant.restaurants[0].restaurant.price_range);
 
         });
 
@@ -202,7 +198,6 @@ var internApplication = (function(){
 
     return {
         getLocation: getLocation,
-        initialSearchFinished: initialSearchFinished,
         options: options,
         reroll: reroll,
         search: search,

@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+    <div id="logoWrapper">
+        <img src="assets/images/designory-logo.png">
+    </div>
     <div id="homeScreen">
-        <div id="logoWrapper">
-            <img src="assets/images/designory-logo.png">
-        </div>
         <button id="feedMe"><h1>Feed Me</h1></button>
         <div id="filtersLabel">
             <img src="assets/images/filterIcon.png">
@@ -34,13 +34,26 @@
         </div>
     </div>
 
-    <div id="resultScreen">
-        <img id="resultImage">
-        <h2 id="resultName"></h2>
-        <p id="resultPrice"></p>
+    <div id="resultScreen" style="display: none;">
+        <div id="resultWrapper">            
+            <img id="resultImage" src="http://www.placehold.it/2000x1000/666666">
+            <div id="resultInfo">
+                <h2 id="resultName"></h2>
+                <p id="resultAddress"></p>
+                <p id="resultPrice"></p>
+            </div>
+        </div>
+        <div id="resultButtons">
+            <div id="resultButtons__home">
+                <img id="resultHomeButton" src="assets/images/home.png">
+            </div>
+            <div id="resultButtons__reroll">
+                <button id="reroll"><h1>nope, another one</h1></button>
+            </div>
+        </div>
     </div>
 
-    <div id="loadingScreen"><img src="assets/images/loading.gif"></div>
+    <div id="loadingScreen" style="display: none;"><img src="assets/images/loading.gif"></div>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/config.js"></script>
