@@ -10,7 +10,9 @@ var internApplication = (function(){
     var options = {};
 
     var setOptions = function(){
-        options.radius = (0.5 * 1609.34).toFixed(0);
+
+        var radiusValue = document.getElementById('distanceFilter').querySelector('.selected').getAttribute('value');
+        options.radius = (radiusValue * 1609.34).toFixed(0);
     }
 
     var getLocation = function(callback){
@@ -26,7 +28,7 @@ var internApplication = (function(){
                 currentLat = position.coords.latitude.toFixed(8);
                 currentLong = position.coords.longitude.toFixed(8);
 
-                console.log('current location: lat ' + currentLat + ', long ' + currentLong);
+                //console.log('current location: lat ' + currentLat + ', long ' + currentLong);
 
                 callback();
 
@@ -91,7 +93,7 @@ var internApplication = (function(){
                 currentLat = geoRequestRes.latitude;
                 currentLong = geoRequestRes.longitude;
 
-                console.log('current location: lat ' + currentLat + ', long ' + currentLong);
+                //console.log('current location: lat ' + currentLat + ', long ' + currentLong);
 
                 // get data based on current search
                 getZomatoData(0, 20, function(){
@@ -117,19 +119,21 @@ var internApplication = (function(){
         // get random restaurant number based on current search
         randomRestaurant(responseData);
 
-        console.log('lucky number: ' + currentRestaurantNum);
+        //console.log('lucky number: ' + currentRestaurantNum);
 
         // get the chosen restaurant data
         getZomatoData(currentRestaurantNum, 1, function(){
 
             currentRestaurant = JSON.parse(this.response);
 
+            console.log(currentRestaurant);
             console.log(currentRestaurant.restaurants[0]);
             console.log(currentRestaurant.restaurants[0].restaurant.name);
+            console.log(currentRestaurant.restaurants[0].restaurant.featured_image);
 
             // populate result
-            internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.photos_url, currentRestaurant.restaurants[0].restaurant.price_range);
-            console.log(currentRestaurant.restaurants[0].restaurant.photos_url);
+            internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.featured_image, currentRestaurant.restaurants[0].restaurant.price_range);
+
         });
 
         // if the initial search has finished...
@@ -153,8 +157,10 @@ var internApplication = (function(){
 
         var zomatoRequestOptions = {
             method: 'GET',
-            url: 'https://developers.zomato.com/api/v2.1/search?' + 'start="' + start + '"&count=' + count + '&lat=' + currentLat + '&lon=' + currentLong + '&radius=' + options.radius
+            url: 'https://developers.zomato.com/api/v2.1/search?' + 'start=' + start + '&count=' + count + '&lat=' + currentLat + '&lon=' + currentLong + '&radius=' + options.radius
         };
+
+        console.log(zomatoRequestOptions.url);
 
         var zomatoRequest = new XMLHttpRequest();
 
@@ -183,9 +189,14 @@ var internApplication = (function(){
 
     }
 
-    var getRandomInt = function(max) {
-        min = 0;
-        max = Math.floor(max);
+    var getRandomInt = function(maxVal) {
+        var min = 0;
+        var max = maxVal;
+
+        if (max > 99){
+            max = 99;
+        }
+
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
     }
 
@@ -194,7 +205,8 @@ var internApplication = (function(){
         initialSearchFinished: initialSearchFinished,
         options: options,
         reroll: reroll,
-        search: search
+        search: search,
+        setOptions: setOptions
     }
 
 }());

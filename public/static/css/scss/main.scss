@@ -32,6 +32,8 @@
         border-radius: 50px;
         cursor: pointer;
         left: 50%;
+        max-width: 480px;
+        min-width: 320px;
         padding: 20px;
         position: relative;
         top: 50%;
@@ -71,6 +73,7 @@
         background-color: #333333;
         bottom: 0;
         height: 0;
+        overflow: hidden;
         position: absolute;
         width: 100%;
     }
@@ -78,8 +81,8 @@
 
 #filtersList {
     margin: 0 auto;
-    width: 90%;
     opacity: 0;
+    width: 90%;
 
     .filterOption {
         margin: 15px 0;
@@ -93,12 +96,14 @@
 
         .filterOptionListItem {
             background-color: #292929;
+            cursor: pointer;
             display: block;
             float: left;
             height: 60px;
             padding: 0;
             position: relative;
             text-align: center;
+            transition: .25s all;
             width: 18.4%;
 
             span {
@@ -110,6 +115,7 @@
                 position: relative;
                 top: 50%;
                 transform: translateY(-50%);
+                transition: .25s all;
             }
 
             &:not(:first-child) {

@@ -58,6 +58,9 @@ var internApplicationView = (function(){
             $(homeScreen).animate({opacity: 0}, filtersSettings.fadeTime, function(){
                 this.style.display = 'none';
             });
+            
+            // set options based on filters
+            internApplication.setOptions();
 
             // run the search
             internApplication.search();
@@ -120,8 +123,22 @@ var internApplicationView = (function(){
     }
 
     var populateResult = function(name, image, price){
+
+        // display the result screen
         resultScreen.style.display = 'block';
-        resultImage.setAttribute('src', image);
+
+        // check for featured image
+        if( image == '') {
+
+            console.log('set default image');
+
+        }else {
+
+            resultImage.setAttribute('src', image);
+
+        }
+
+        // populate info
         resultName.innerHTML = name;
         resultPrice.innerHTML = price;
     }

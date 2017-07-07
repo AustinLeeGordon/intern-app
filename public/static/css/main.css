@@ -45,6 +45,8 @@ a {
     border-radius: 50px;
     cursor: pointer;
     left: 50%;
+    max-width: 480px;
+    min-width: 320px;
     padding: 20px;
     position: relative;
     top: 50%;
@@ -76,13 +78,14 @@ a {
     background-color: #333333;
     bottom: 0;
     height: 0;
+    overflow: hidden;
     position: absolute;
     width: 100%; }
 
 #filtersList {
   margin: 0 auto;
-  width: 90%;
-  opacity: 0; }
+  opacity: 0;
+  width: 90%; }
   #filtersList .filterOption {
     margin: 15px 0; }
     #filtersList .filterOption p {
@@ -92,12 +95,14 @@ a {
       margin: 30px 0 15px; }
     #filtersList .filterOption .filterOptionListItem {
       background-color: #292929;
+      cursor: pointer;
       display: block;
       float: left;
       height: 60px;
       padding: 0;
       position: relative;
       text-align: center;
+      transition: .25s all;
       width: 18.4%; }
       #filtersList .filterOption .filterOptionListItem span {
         color: #555555;
@@ -107,7 +112,8 @@ a {
         font-weight: 400;
         position: relative;
         top: 50%;
-        transform: translateY(-50%); }
+        transform: translateY(-50%);
+        transition: .25s all; }
       #filtersList .filterOption .filterOptionListItem:not(:first-child) {
         margin-left: 2%; }
       #filtersList .filterOption .filterOptionListItem.selected {
