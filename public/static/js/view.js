@@ -12,7 +12,7 @@ var internApplicationView = (function(){
     var distanceFilter = document.getElementById('distanceFilter');
     var distanceFilterListItems = distanceFilter.querySelectorAll('.filterOptionListItem');
 
-    var filtersSettings = {
+    var filtersConfig = {
         state: true, // animation is running when set to false
         hidden: true,
         animationTime: 500,
@@ -37,8 +37,8 @@ var internApplicationView = (function(){
     $(window).resize(function() {
         windowH = $(window).height();
 
-        filtersSettings.menuHeight = windowH - 250 + 'px';
-        if(!filtersSettings.hidden) {
+        filtersConfig.menuHeight = windowH - 250 + 'px';
+        if(!filtersConfig.hidden) {
             filterMenuToggle();
         }
     });
@@ -49,16 +49,16 @@ var internApplicationView = (function(){
         feedMeButton.addEventListener('click', function(){
 
             // hide this filters menu if it is showing
-            if(!filtersSettings.hidden) {
+            if(!filtersConfig.hidden) {
                 filterMenuToggle();
             }
 
             // show the loading screen
             loadingScreen.style.display = 'block';
-            $(loadingScreen).animate({opacity: 1}, filtersSettings.fadeTime);
+            $(loadingScreen).animate({opacity: 1}, filtersConfig.fadeTime);
 
             // hide the home screen
-            $(homeScreen).animate({opacity: 0}, filtersSettings.fadeTime, function(){
+            $(homeScreen).animate({opacity: 0}, filtersConfig.fadeTime, function(){
                 this.style.display = 'none';
             });
 
@@ -77,10 +77,10 @@ var internApplicationView = (function(){
 
             // show the home screen
             homeScreen.style.display = 'block';
-            $(homeScreen).animate({opacity: 1}, filtersSettings.fadeTime);
+            $(homeScreen).animate({opacity: 1}, filtersConfig.fadeTime);
 
             // hide the result screen
-            $(resultScreen).animate({opacity: 0}, filtersSettings.fadeTime, function(){
+            $(resultScreen).animate({opacity: 0}, filtersConfig.fadeTime, function(){
                 this.style.display = 'none';
             });
 
@@ -109,24 +109,24 @@ var internApplicationView = (function(){
     var filterMenuToggle = function(){
 
         // show filters menu
-        if(filtersSettings.state && filtersSettings.hidden){
+        if(filtersConfig.state && filtersConfig.hidden){
 
-            filtersSettings.state = false;
+            filtersConfig.state = false;
 
-            $(feedMeButton).animate({top: '150px'}, filtersSettings.animationTime);
-            $(filtersMenu).animate({height: filtersSettings.menuHeight}, filtersSettings.animationTime);
-            $(filtersList).delay(filtersSettings.animationTime).animate({opacity: 1}, filtersSettings.fadeTime);
-            $(filtersButton).animate({bottom: filtersSettings.menuHeight}, filtersSettings.animationTime, filterMenuCallback(true, false));
+            $(feedMeButton).animate({top: '150px'}, filtersConfig.animationTime);
+            $(filtersMenu).animate({height: filtersConfig.menuHeight}, filtersConfig.animationTime);
+            $(filtersList).delay(filtersConfig.animationTime).animate({opacity: 1}, filtersConfig.fadeTime);
+            $(filtersButton).animate({bottom: filtersConfig.menuHeight}, filtersConfig.animationTime, filterMenuCallback(true, false));
 
         // hide filters menu
-        }else if(filtersSettings.state && !filtersSettings.hidden){
+        }else if(filtersConfig.state && !filtersConfig.hidden){
 
-            filtersSettings.state = false;
+            filtersConfig.state = false;
 
-            $(filtersList).animate({opacity: 0}, filtersSettings.fadeTime);
-            $(feedMeButton).animate({top: '50%'}, filtersSettings.animationTime);
-            $(filtersMenu).animate({height: '0'}, filtersSettings.animationTime);
-            $(filtersButton).animate({bottom: '0'}, filtersSettings.animationTime, filterMenuCallback(true, true));
+            $(filtersList).animate({opacity: 0}, filtersConfig.fadeTime);
+            $(feedMeButton).animate({top: '50%'}, filtersConfig.animationTime);
+            $(filtersMenu).animate({height: '0'}, filtersConfig.animationTime);
+            $(filtersButton).animate({bottom: '0'}, filtersConfig.animationTime, filterMenuCallback(true, true));
 
         }
         
@@ -136,10 +136,10 @@ var internApplicationView = (function(){
 
         setTimeout(function(){
 
-            filtersSettings.state = state;
-            filtersSettings.hidden = hidden;
+            filtersConfig.state = state;
+            filtersConfig.hidden = hidden;
 
-        }, filtersSettings.animationTime + filtersSettings.fadeTime);
+        }, filtersConfig.animationTime + filtersConfig.fadeTime);
 
     }
 
@@ -147,11 +147,10 @@ var internApplicationView = (function(){
 
         var priceInDollars = '$';
         var imageType = image.split('.').pop().toLowerCase();
-        console.log(imageType);
 
         // display the result screen
         resultScreen.style.display = 'block';
-        $(resultScreen).animate({opacity: 1}, filtersSettings.fadeTime);
+        $(resultScreen).animate({opacity: 1}, filtersConfig.fadeTime);
 
         // check for featured image
         if( imageType == 'jpg' || imageType == 'png' ) {
@@ -161,7 +160,6 @@ var internApplicationView = (function(){
         }else {
 
             resultImage.setAttribute('src', 'assets/images/default.jpg');
-            console.log('set default image');
 
         }
 
@@ -177,7 +175,7 @@ var internApplicationView = (function(){
     }
 
     return {
-        filtersSettings: filtersSettings,
+        filtersConfig: filtersConfig,
         populateResult: populateResult,
         init: init
     }

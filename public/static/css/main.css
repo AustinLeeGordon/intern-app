@@ -129,6 +129,7 @@ a {
   position: absolute;
   width: 100%; }
   #resultScreen #resultWrapper {
+    border: 1px solid #ddd;
     box-shadow: 0 0 15px #ccc;
     font-family: "Montserrat", sans-serif;
     margin: 0 auto;

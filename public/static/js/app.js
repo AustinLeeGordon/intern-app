@@ -27,8 +27,6 @@ var internApplication = (function(){
                 currentLat = position.coords.latitude.toFixed(8);
                 currentLong = position.coords.longitude.toFixed(8);
 
-                //console.log('current location: lat ' + currentLat + ', long ' + currentLong);
-
                 callback();
 
             }
@@ -73,10 +71,6 @@ var internApplication = (function(){
                 // get data based on current search
                 getZomatoData(0, 20, function(){
 
-                    responseData = JSON.parse(this.response);
-
-                    console.log(responseData);
-
                     reroll();
 
                 });
@@ -92,14 +86,8 @@ var internApplication = (function(){
                 currentLat = geoRequestRes.latitude;
                 currentLong = geoRequestRes.longitude;
 
-                console.log('current location: lat ' + currentLat + ', long ' + currentLong);
-
                 // get data based on current search
                 getZomatoData(0, 20, function(){
-
-                    responseData = JSON.parse(this.response);
-
-                    console.log(responseData);
 
                     reroll();
 
@@ -118,14 +106,10 @@ var internApplication = (function(){
         // get random restaurant number based on current search
         randomRestaurant(responseData);
 
-        //console.log('lucky number: ' + currentRestaurantNum);
-
         // get the chosen restaurant data
         getZomatoData(currentRestaurantNum, 1, function(){
 
-            currentRestaurant = JSON.parse(this.response);
-
-            console.log(currentRestaurant);
+            currentRestaurant = responseData;
 
             // populate result
             internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.featured_image, currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.location.address, currentRestaurant.restaurants[0].restaurant.price_range);
@@ -139,8 +123,10 @@ var internApplication = (function(){
             initialSearchFinished = true;
 
             // hide loading screen
-            $('#loadingScreen').animate({opacity: 0}, internApplicationView.filtersSettings.fadeTime, function(){
+            $('#loadingScreen').animate({opacity: 0}, internApplicationView.filtersConfig.fadeTime, function(){
+
                 this.style.display = 'none';
+
             });
 
         }
@@ -151,32 +137,34 @@ var internApplication = (function(){
 
         console.log('getting Zomato response data...');
 
-        var zomatoRequestOptions = {
-            method: 'GET',
-            url: 'https://developers.zomato.com/api/v2.1/search?' + 'start=' + start + '&count=' + count + '&lat=' + currentLat + '&lon=' + currentLong + '&radius=' + options.radius
+        var dataOptions = {
+            start: start,
+            count: count,
+            currentLat: currentLat,
+            currentLong: currentLong,
+            radius: options.radius
         };
 
-        console.log(zomatoRequestOptions.url);
+        $.ajax({
+            url: 'http://localhost:6060/get-zomato-data/',
+            type: 'GET',
+            data: dataOptions,
+            success: function(returnedData) {
 
-        var zomatoRequest = new XMLHttpRequest();
+                responseData = returnedData;
+                callback();
 
-        zomatoRequest.onreadystatechange = function() {
-            if (zomatoRequest.readyState == 4) {
-                if (typeof callback == "function") {
-
-                    callback.apply(zomatoRequest);
-
-                }
             }
-        }
+        }).done(function(returnedData) {
 
-        zomatoRequest.open(zomatoRequestOptions.method, zomatoRequestOptions.url);
-        zomatoRequest.setRequestHeader('user-key', config.ZOMATO_KEY);
-        zomatoRequest.send();
+            console.log('returning data...');
+
+        });
 
     }
 
     var randomRestaurant = function(responseData){
+
         console.log('picking random restaurant from results...');
 
         var max = responseData.results_found;
