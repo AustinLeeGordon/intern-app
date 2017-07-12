@@ -9,6 +9,7 @@ var internApplication = (function(){
 
     var options = {};
 
+    // set options based on filters chosen by user
     var setOptions = function(){
 
         var radiusValue = document.getElementById('distanceFilter').querySelector('.selected').getAttribute('value');
@@ -16,10 +17,12 @@ var internApplication = (function(){
 
     }
 
+    // get user's current location
     var getLocation = function(callback){
 
         console.log('getting location...');
 
+        // use html5
         if(location.protocol == 'https:' && navigator.geolocation) {
 
             function getPosition(position){
@@ -33,7 +36,7 @@ var internApplication = (function(){
 
             navigator.geolocation.getCurrentPosition(getPosition);
 
-
+        // use freegeoip.net as a fallback
         } else {
 
             var georequestOptions = {
@@ -61,9 +64,9 @@ var internApplication = (function(){
         // set search state
         initialSearchFinished = false;
         
-
         setOptions();
 
+        // use html5
         if(location.protocol == 'https:' && navigator.geolocation) {
 
             getLocation(function(){
@@ -77,6 +80,7 @@ var internApplication = (function(){
 
             });
 
+        // use freegeoip.net as a fallback
         }else {
 
             getLocation(function(){
@@ -133,10 +137,12 @@ var internApplication = (function(){
 
     }
 
+    // get Zomato data from the api
     var getZomatoData = function(start, count, callback){
 
         console.log('getting Zomato response data...');
 
+        // options to be sent to server
         var dataOptions = {
             start: start,
             count: count,
@@ -145,6 +151,7 @@ var internApplication = (function(){
             radius: options.radius
         };
 
+        // server request to get data
         $.ajax({
             url: 'http://localhost:6060/get-zomato-data/',
             type: 'GET',
@@ -155,14 +162,11 @@ var internApplication = (function(){
                 callback();
 
             }
-        }).done(function(returnedData) {
-
-            console.log('returning data...');
-
         });
 
     }
 
+    // pick a random restaurant from the api response
     var randomRestaurant = function(responseData){
 
         console.log('picking random restaurant from results...');
@@ -173,12 +177,14 @@ var internApplication = (function(){
 
     }
 
+    // selects a random intiger given a maximum number
     var getRandomInt = function(maxVal) {
         var min = 0;
         var max = maxVal;
 
-        if (max > 99){
-            max = 99;
+        // Zomato request limits 'start' to 100, so only the first 100 results may be used
+        if (max > 100){
+            max = 100;
         }
 
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive

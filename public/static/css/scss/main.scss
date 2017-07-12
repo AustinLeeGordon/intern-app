@@ -1,69 +1,83 @@
 @import "partials/partials";
 
+body {
+    background-color: #fbfbfb;
+}
+
 :focus {
     outline:none;
 }
 
 #logoWrapper {
-    background-color: #f9f9f9;
-    height: 100px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px #eaeaea;
+    height: 60px;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 9000;
 
     img {
         left: 50%;
         position: relative;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 200px;
+        width: 140px;
+    }
+}
+
+.primaryButton {
+    background-color: $primary-blue;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 1px 3px 10px rgba(0,0,0, 0.2);
+    cursor: pointer;
+    left: 50%;
+    max-width: 480px;
+    min-width: 280px;
+    padding: 18px 0;
+    transform: translateX(-50%);
+    width: 80%;
+    
+    h1 {
+        color: #ffffff;
+        font-family: $Montserrat;
+        font-size: 20px;
+        font-weight: 400;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
     }
 }
 
 #homeScreen {
-    background-color: #ffffff;
     height: 100%;
     position: absolute;
     width: 100%;
 
     #feedMe {
-        background-color: $primary-blue;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        left: 50%;
-        max-width: 480px;
-        min-width: 320px;
-        padding: 20px;
         position: relative;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;
-        
-        h1 {
-            color: #ffffff;
-            font-family: $Montserrat;
-            font-size: 24px;
-            font-weight: 400;
-            position: relative;
-            text-align: center;
-            text-transform: uppercase;
-        }
     }
 
     #filtersLabel {
-        bottom: 0;
+        bottom: 50px;
         cursor: pointer;
         left: 50%;
         position: absolute;
         transform: translateX(-50%);
 
+        .addFiltersText {
+            color: #b1b1b1;
+            font-family: $Montserrat;
+        }
+
         img {
             display: block;
             height: 32px;
             left: 50%;
-            padding: 15px;
+            padding: 10px 15px 15px;
             position: relative;
             transform: translateX(-50%);
             width: 32px;
@@ -89,10 +103,11 @@
         margin: 15px 0;
 
         p {
-            color: #ffffff;
+            color: #aeaeae;
             font-family: $Montserrat;
+            font-size: 14px;
             font-weight: 300;
-            margin: 30px 0 15px;
+            margin: 25px 0 10px;
         }
 
         .filterOptionListItem {
@@ -135,14 +150,13 @@
 }
 
 #resultScreen {
-    background-color: #ffffff;
     height: 100%;
     position: absolute;
     width: 100%;
 
     #resultWrapper {
-        border: 1px solid #ddd;
-        box-shadow: 0 0 15px #ccc;
+        border: 1px solid #eaeaea;
+        box-shadow: 0 0 10px #eaeaea;
         font-family: $Montserrat;
         margin: 0 auto;
         max-width: 480px;
@@ -161,87 +175,67 @@
 
         #resultName {
             color: #000000;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             padding: 0 0;
+
+            @media (min-width: $desktop) {
+                padding: 0 0 7px;
+            }
         }
 
         #resultAddress {
-            color: #555555;
+            color: #777777;
+            cursor: pointer;
             font-size: 14px;
             font-weight: 400;
             padding: 10px 0;
+            text-decoration: underline;
+        
+            &:link, &:visited {
+                color: #777777;
+            }
+
+            &:hover, &:active {
+                color: $primary-blue;
+            }
         }
 
         #resultPrice {
-            color: #000000;
-            font-size: 20px;
+            color: #c4c4c4;
+            font-size: 16px;
             font-weight: 400;
-            padding: 0 0;
+            letter-spacing: 1px;
+            padding: 5px 0 0;
 
-            &:after {
-                color: #555555;
-                content: 'price';
-                display: block;
-                font-size: 12px;
-                font-weight: 300;
+            @media (min-width: $desktop) {
+                padding: 12px 0 0;
             }
         }
     }
 
-    #resultButtons {
-        bottom: 20px;
-        height: 50px;
-        left: 50%;
-        max-width: 480px;
+    #resultHomeButton {
+        border-bottom: 3px solid $primary-blue;
+        border-left: 3px solid $primary-blue;
+        cursor: pointer;
+        height: 11px;
+        left: 40px;
         position: absolute;
-        transform: translateX(-50%);
-        width: 80%;
+        top: 23px;
+        transform: rotate(45deg);
+        width: 11px;
+        z-index: 9001;
+    }
 
-        &__home {
-            float: left;
-            height: inherit;
-            width: 20%;
-        }
-
-        &__reroll {
-            float: left;
-            height: inherit;
-            width: 75%;
-        }
-
-        #resultHomeButton {
-            cursor: pointer;
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-        }
-
-        #reroll {
-            background-color: $primary-blue;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            height: 100%;
-            position: relative;
-            width: 100%;
-            
-            h1 {
-                color: #ffffff;
-                font-family: $Montserrat;
-                font-size: 14px;
-                font-weight: 400;
-                position: relative;
-                text-align: center;
-                text-transform: uppercase;
-            }
-        }
+    #reroll {
+        bottom: 50px;
+        position: absolute;
     }
 }
 
+
+
 #loadingScreen {
-    background-color: #ffffff;
     height: 100%;
     opacity: 0;
     position: absolute;

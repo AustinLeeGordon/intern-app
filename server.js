@@ -10,7 +10,7 @@ app.get('/get-zomato-data', function(req, res){
 
     var requestOptions = {
         hostname: 'developers.zomato.com',
-        path: '/api/v2.1/search?' + 'start=' + req.query.start + '&count=' + req.query.count + '&lat=' + req.query.currentLat + '&lon=' + req.query.currentLong + '&radius=' + req.query.radius,
+        path: '/api/v2.1/search?' + 'start=' + req.query.start + '&count=' + req.query.count + '&lat=' + req.query.currentLat + '&lon=' + req.query.currentLong + '&radius=' + req.query.radius + '&sort=real_distance&order=desc',
         protocol: 'https:',
         method: 'GET',
         headers: {

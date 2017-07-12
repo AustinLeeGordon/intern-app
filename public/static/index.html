@@ -14,8 +14,9 @@
         <img src="assets/images/designory-logo.png">
     </div>
     <div id="homeScreen">
-        <button id="feedMe"><h1>Feed Me</h1></button>
+        <button id="feedMe" class="primaryButton"><h1>Feed Me</h1></button>
         <div id="filtersLabel">
+            <p class="addFiltersText">add filters</p>
             <img src="assets/images/filterIcon.png">
         </div>
         <div id="filtersMenu">
@@ -34,23 +35,17 @@
         </div>
     </div>
 
-    <div id="resultScreen" style="display: none;">
+    <div id="resultScreen" style="display: none">
+        <div id="resultHomeButton"></div>
         <div id="resultWrapper">            
             <img id="resultImage" src="assets/images/default.jpg">
             <div id="resultInfo">
                 <h2 id="resultName"></h2>
-                <p id="resultAddress"></p>
+                <a href="#" target="_blank" id="resultAddress"></a>
                 <p id="resultPrice"></p>
             </div>
         </div>
-        <div id="resultButtons">
-            <div id="resultButtons__home">
-                <img id="resultHomeButton" src="assets/images/home.png">
-            </div>
-            <div id="resultButtons__reroll">
-                <button id="reroll"><h1>nope, another one</h1></button>
-            </div>
-        </div>
+        <button id="reroll" class="primaryButton"><h1>nope, another one</h1></button>
     </div>
 
     <div id="loadingScreen" style="display: none;"><img src="assets/images/loading.gif"></div>

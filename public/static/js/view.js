@@ -7,6 +7,7 @@ var internApplicationView = (function(){
     var feedMeButton = document.getElementById('feedMe');
 
     var filtersButton = document.getElementById('filtersLabel');
+    var filtersText = document.getElementsByClassName('addFiltersText');
     var filtersMenu = document.getElementById('filtersMenu');
     var filtersList = document.getElementById('filtersList');
     var distanceFilter = document.getElementById('distanceFilter');
@@ -17,7 +18,7 @@ var internApplicationView = (function(){
         hidden: true,
         animationTime: 500,
         fadeTime: 250,
-        menuHeight: windowH - 250 + 'px'
+        menuHeight: 150 + 'px'
     };
 
     // result screen items
@@ -32,16 +33,6 @@ var internApplicationView = (function(){
 
     // loading screen
     var loadingScreen = document.getElementById('loadingScreen');
-
-
-    $(window).resize(function() {
-        windowH = $(window).height();
-
-        filtersConfig.menuHeight = windowH - 250 + 'px';
-        if(!filtersConfig.hidden) {
-            filterMenuToggle();
-        }
-    });
 
     var init = function(){
 
@@ -113,9 +104,14 @@ var internApplicationView = (function(){
 
             filtersConfig.state = false;
 
-            $(feedMeButton).animate({top: '150px'}, filtersConfig.animationTime);
+            // hide add filters text
+            $(filtersText).animate({opacity: 0}, filtersConfig.fadeTime);
+
+            // slide up menu, fade in filters
             $(filtersMenu).animate({height: filtersConfig.menuHeight}, filtersConfig.animationTime);
             $(filtersList).delay(filtersConfig.animationTime).animate({opacity: 1}, filtersConfig.fadeTime);
+
+            // move filters button up
             $(filtersButton).animate({bottom: filtersConfig.menuHeight}, filtersConfig.animationTime, filterMenuCallback(true, false));
 
         // hide filters menu
@@ -123,10 +119,15 @@ var internApplicationView = (function(){
 
             filtersConfig.state = false;
 
+            // show add filters text
+            $(filtersText).delay(filtersConfig.fadeTime).animate({opacity: 1}, filtersConfig.fadeTime);
+
+            // fade out filters, slide down menu
             $(filtersList).animate({opacity: 0}, filtersConfig.fadeTime);
-            $(feedMeButton).animate({top: '50%'}, filtersConfig.animationTime);
             $(filtersMenu).animate({height: '0'}, filtersConfig.animationTime);
-            $(filtersButton).animate({bottom: '0'}, filtersConfig.animationTime, filterMenuCallback(true, true));
+
+            // move filters button down
+            $(filtersButton).animate({bottom: '50px'}, filtersConfig.animationTime, filterMenuCallback(true, true));
 
         }
         
@@ -145,7 +146,10 @@ var internApplicationView = (function(){
 
     var populateResult = function(image, name, address, price){
 
-        var priceInDollars = '$';
+        // </span> is injected in priceArray index based on price
+        var priceArray = ['<span style="color: #0072b0">', '$', '$', '$', '$'];
+        var priceMarkup = '';
+
         var imageType = image.split('.').pop().toLowerCase();
 
         // display the result screen
@@ -163,15 +167,19 @@ var internApplicationView = (function(){
 
         }
 
-        // convert price number to dollar signs
-        for(var i = 1; i < price; i++) {
-            priceInDollars += '$';
-        }
+        // reset resultPrice
+        resultPrice.innerHTML = '';
+
+        resultAddress.setAttribute('href', 'https://www.google.com/maps/dir//' + address);
+
+        // insert </span> at index depending on price
+        priceArray.splice(price + 1, 0, '</span>');
+        priceMarkup = priceArray.join('');
 
         // populate info
         resultName.innerHTML = name;
         resultAddress.innerHTML = address;
-        resultPrice.innerHTML = priceInDollars;
+        resultPrice.insertAdjacentHTML('afterbegin', priceMarkup);
     }
 
     return {

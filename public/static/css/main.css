@@ -19,60 +19,70 @@ img {
 a {
   text-decoration: none; }
 
+body {
+  background-color: #fbfbfb; }
+
 :focus {
   outline: none; }
 
 #logoWrapper {
-  background-color: #f9f9f9;
-  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #eaeaea;
+  height: 60px;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 9999; }
+  z-index: 9000; }
   #logoWrapper img {
     left: 50%;
     position: relative;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 200px; }
+    width: 140px; }
+
+.primaryButton {
+  background-color: #0072b0;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  left: 50%;
+  max-width: 480px;
+  min-width: 280px;
+  padding: 18px 0;
+  transform: translateX(-50%);
+  width: 80%; }
+  .primaryButton h1 {
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase; }
 
 #homeScreen {
-  background-color: #ffffff;
   height: 100%;
   position: absolute;
   width: 100%; }
   #homeScreen #feedMe {
-    background-color: #0072b0;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    left: 50%;
-    max-width: 480px;
-    min-width: 320px;
-    padding: 20px;
     position: relative;
     top: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%; }
-    #homeScreen #feedMe h1 {
-      color: #ffffff;
-      font-family: "Montserrat", sans-serif;
-      font-size: 24px;
-      font-weight: 400;
-      position: relative;
-      text-align: center;
-      text-transform: uppercase; }
+    transform: translate(-50%, -50%); }
   #homeScreen #filtersLabel {
-    bottom: 0;
+    bottom: 50px;
     cursor: pointer;
     left: 50%;
     position: absolute;
     transform: translateX(-50%); }
+    #homeScreen #filtersLabel .addFiltersText {
+      color: #b1b1b1;
+      font-family: "Montserrat", sans-serif; }
     #homeScreen #filtersLabel img {
       display: block;
       height: 32px;
       left: 50%;
-      padding: 15px;
+      padding: 10px 15px 15px;
       position: relative;
       transform: translateX(-50%);
       width: 32px; }
@@ -91,10 +101,11 @@ a {
   #filtersList .filterOption {
     margin: 15px 0; }
     #filtersList .filterOption p {
-      color: #ffffff;
+      color: #aeaeae;
       font-family: "Montserrat", sans-serif;
+      font-size: 14px;
       font-weight: 300;
-      margin: 30px 0 15px; }
+      margin: 25px 0 10px; }
     #filtersList .filterOption .filterOptionListItem {
       background-color: #292929;
       cursor: pointer;
@@ -124,13 +135,12 @@ a {
           color: #ffffff; }
 
 #resultScreen {
-  background-color: #ffffff;
   height: 100%;
   position: absolute;
   width: 100%; }
   #resultScreen #resultWrapper {
-    border: 1px solid #ddd;
-    box-shadow: 0 0 15px #ccc;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 10px #eaeaea;
     font-family: "Montserrat", sans-serif;
     margin: 0 auto;
     max-width: 480px;
@@ -144,66 +154,48 @@ a {
       padding: 10px 15px; }
     #resultScreen #resultWrapper #resultName {
       color: #000000;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       padding: 0 0; }
+      @media (min-width: 768px) {
+        #resultScreen #resultWrapper #resultName {
+          padding: 0 0 7px; } }
     #resultScreen #resultWrapper #resultAddress {
-      color: #555555;
+      color: #777777;
+      cursor: pointer;
       font-size: 14px;
       font-weight: 400;
-      padding: 10px 0; }
+      padding: 10px 0;
+      text-decoration: underline; }
+      #resultScreen #resultWrapper #resultAddress:link, #resultScreen #resultWrapper #resultAddress:visited {
+        color: #777777; }
+      #resultScreen #resultWrapper #resultAddress:hover, #resultScreen #resultWrapper #resultAddress:active {
+        color: #0072b0; }
     #resultScreen #resultWrapper #resultPrice {
-      color: #000000;
-      font-size: 20px;
+      color: #c4c4c4;
+      font-size: 16px;
       font-weight: 400;
-      padding: 0 0; }
-      #resultScreen #resultWrapper #resultPrice:after {
-        color: #555555;
-        content: 'price';
-        display: block;
-        font-size: 12px;
-        font-weight: 300; }
-  #resultScreen #resultButtons {
-    bottom: 20px;
-    height: 50px;
-    left: 50%;
-    max-width: 480px;
+      letter-spacing: 1px;
+      padding: 5px 0 0; }
+      @media (min-width: 768px) {
+        #resultScreen #resultWrapper #resultPrice {
+          padding: 12px 0 0; } }
+  #resultScreen #resultHomeButton {
+    border-bottom: 3px solid #0072b0;
+    border-left: 3px solid #0072b0;
+    cursor: pointer;
+    height: 11px;
+    left: 40px;
     position: absolute;
-    transform: translateX(-50%);
-    width: 80%; }
-    #resultScreen #resultButtons__home {
-      float: left;
-      height: inherit;
-      width: 20%; }
-    #resultScreen #resultButtons__reroll {
-      float: left;
-      height: inherit;
-      width: 75%; }
-    #resultScreen #resultButtons #resultHomeButton {
-      cursor: pointer;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 30px; }
-    #resultScreen #resultButtons #reroll {
-      background-color: #0072b0;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      height: 100%;
-      position: relative;
-      width: 100%; }
-      #resultScreen #resultButtons #reroll h1 {
-        color: #ffffff;
-        font-family: "Montserrat", sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-        position: relative;
-        text-align: center;
-        text-transform: uppercase; }
+    top: 23px;
+    transform: rotate(45deg);
+    width: 11px;
+    z-index: 9001; }
+  #resultScreen #reroll {
+    bottom: 50px;
+    position: absolute; }
 
 #loadingScreen {
-  background-color: #ffffff;
   height: 100%;
   opacity: 0;
   position: absolute;
