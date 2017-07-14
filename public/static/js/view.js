@@ -170,7 +170,8 @@ var internApplicationView = (function(){
         // reset resultPrice
         resultPrice.innerHTML = '';
 
-        resultAddress.setAttribute('href', 'https://www.google.com/maps/dir//' + address);
+        // link address to google search
+        resultAddress.setAttribute('href', 'https://www.google.com/maps/dir/current+location/' + address);
 
         // insert </span> at index depending on price
         priceArray.splice(price + 1, 0, '</span>');
