@@ -39,6 +39,8 @@ var internApplication = (function(){
         // use freegeoip.net as a fallback
         } else {
 
+            console.log('using freegeoip.net...');
+
             var georequestOptions = {
                 method: 'GET',
                 url: 'http://www.freegeoip.net/json/'
@@ -90,6 +92,8 @@ var internApplication = (function(){
                 currentLat = geoRequestRes.latitude;
                 currentLong = geoRequestRes.longitude;
 
+                console.log(currentLat + ', ' + currentLong);
+
                 // get data based on current search
                 getZomatoData(0, 20, function(){
 
@@ -114,6 +118,8 @@ var internApplication = (function(){
         getZomatoData(currentRestaurantNum, 1, function(){
 
             currentRestaurant = responseData;
+
+            console.log(responseData);
 
             // populate result
             internApplicationView.populateResult(currentRestaurant.restaurants[0].restaurant.featured_image, currentRestaurant.restaurants[0].restaurant.name, currentRestaurant.restaurants[0].restaurant.location.address, currentRestaurant.restaurants[0].restaurant.price_range);
@@ -150,6 +156,8 @@ var internApplication = (function(){
             currentLong: currentLong,
             radius: options.radius
         };
+
+        console.log(dataOptions);
 
         // server request to get data
         $.ajax({
